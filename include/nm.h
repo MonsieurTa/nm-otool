@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 16:45:27 by wta               #+#    #+#             */
-/*   Updated: 2020/01/26 20:14:52 by wta              ###   ########.fr       */
+/*   Updated: 2020/01/31 19:45:00 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,35 +21,56 @@
 # define IS_SWAP	0x1
 # define IS_64		0x2
 
-typedef struct stat					t_stat;
+typedef struct stat						t_stat;
 
-typedef struct mach_header			t_mach_header;
-typedef struct mach_header_64		t_mach_header_64;
-typedef struct fat_header			t_fat_header;
-typedef struct fat_arch				t_fat_arch;
-typedef struct fat_arch_64			t_fat_arch_64;
+typedef struct mach_header				t_mach_header;
+typedef struct mach_header_64			t_mach_header_64;
+typedef struct fat_header				t_fat_header;
+typedef struct fat_arch					t_fat_arch;
+typedef struct fat_arch_64				t_fat_arch_64;
 
-typedef struct load_command			t_load_command;
-typedef struct symtab_command		t_symtab_command;
-typedef struct nlist_64				t_nlist_64;
-typedef struct nlist				t_nlist;
+typedef struct load_command				t_load_command;
+typedef struct symtab_command			t_symtab_command;
+typedef struct nlist_64					t_nlist_64;
+typedef struct nlist					t_nlist;
 
-typedef struct segment_command		t_segment_command;
-typedef struct segment_command_64	t_segment_command_64;
+typedef struct linkedit_data_command	t_linkedit_data_command;
+typedef struct data_in_code_entry		t_data_in_code_entry;
 
-typedef struct section				t_section;
-typedef struct section_64			t_section_64;
+typedef struct segment_command			t_segment_command;
+typedef struct segment_command_64		t_segment_command_64;
+
+typedef struct section					t_section;
+typedef struct section_64				t_section_64;
+
+typedef struct			s_nm_result
+{
+	char				*symname;
+	char				symaddr[17];
+	char				symchar;
+}						t_nm_result;
 
 typedef struct			s_nm
 {
 	void				*content;
 	t_list_info			sections;
 
+	t_list_info			result;
+
 	uint32_t			magic;
-	uint32_t			spec;
-	uint32_t			header_size;
+
+	uint8_t				is_64;
+	uint8_t				is_swap;
+
+	uint8_t				nlist_size;
+	uint8_t				section_size;
+	uint8_t				segment_size;
+	uint8_t				header_size;
+
 	uint32_t			ncmds;
-	uint32_t			sizeofcmds;
+
+	char				*strtab;
+	uint32_t			strtabsize;
 
 	uint32_t			nsects;
 }						t_nm;
