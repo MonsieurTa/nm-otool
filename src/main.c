@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 16:49:57 by wta               #+#    #+#             */
-/*   Updated: 2020/02/01 10:32:28 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/01 11:03:43 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,7 @@ void	handle_sections(t_nm *nm, void *segment_command)
 	store_sections(nm, segment_command + nm->segment_size, nsects);
 }
 
-int		handle_load_command(t_nm *nm)
+int		handle_load_commands(t_nm *nm)
 {
 	t_load_command			*lc;
 	t_symtab_command		*sym;
@@ -237,7 +237,7 @@ int		nm_start(t_nm *nm)
 	nm->magic = *(uint32_t*)(nm->content);
 	if (!get_spec(nm))
 		return (0);
-	if (!handle_load_command(nm))
+	if (!handle_load_commands(nm))
 		return (0);
 	return (1);
 }
