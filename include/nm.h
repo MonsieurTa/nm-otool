@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 16:45:27 by wta               #+#    #+#             */
-/*   Updated: 2020/02/01 11:42:01 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/01 16:41:38 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,9 @@ void					push_result(
 							uint64_t addr,
 							uint8_t c,
 							char *str);
+
+t_list					*pop(t_list_info *list);
+void					sort(t_list_info *list, int (*cmp)(t_nm_result*, t_nm_result*));
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 16:49:57 by wta               #+#    #+#             */
-/*   Updated: 2020/02/01 11:34:13 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/01 16:57:59 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,15 @@ int		nm_start(t_nm *nm)
 	return (1);
 }
 
+int		cmp_addr(t_nm_result *a, t_nm_result *b)
+{
+	int32_t	name_diff;
+
+	if ((name_diff = ft_strcmp(a->symname, b->symname)) == 0)
+		return ft_strcmp(a->symaddr, b->symaddr);
+	return (name_diff);
+}
+
 int		main(int argc, char *argv[])
 {
 	t_nm	nm;
@@ -49,7 +58,7 @@ int		main(int argc, char *argv[])
 			if (nm.filestat.st_size >= 4)
 				nm_start(&nm);
 			munmap(nm.content, nm.filestat.st_size);
-
+			sort(&nm.result, cmp_addr);
 			// TODO: move this
 			t_list *node = nm.result.head;
 			while (node) {
