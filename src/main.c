@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 16:49:57 by wta               #+#    #+#             */
-/*   Updated: 2020/01/31 19:47:22 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/01 10:32:28 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ uint8_t	match_symbol_section(t_nm *nm, void *nlist, uint8_t n_type)
 		c = 'T';
 	else if (ft_strequ(sectname, SECT_DATA))
 		c = 'D';
-	else if (ft_strequ(sectname, SECT_TEXT))
-		c = 'T';
+	else if (ft_strequ(sectname, SECT_BSS))
+		c = 'B';
 	else
 		c = 'S';
 	if (!(n_type & N_EXT))
