@@ -6,7 +6,7 @@
 #    By: wta <wta@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/28 20:09:26 by wta               #+#    #+#              #
-#    Updated: 2020/01/31 19:50:33 by wta              ###   ########.fr        #
+#    Updated: 2020/02/01 11:15:11 by wta              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,16 @@ LIBFT = libft
 HEADERS =	\
 nm.h
 
-SRCS =				\
-utils/swap_bytes.c	\
+SRCS =					\
+core/format.c			\
+core/header.c			\
+core/list.c				\
+core/load_commands.c	\
+core/magic.c			\
+core/sections.c			\
+core/symbol.c			\
+utils/spec.c			\
+utils/swap_bytes.c		\
 main.c
 
 OBJ = $(SRCS:.c=.o)
@@ -37,6 +45,7 @@ $(NAME): $(addprefix $(OBJ_DIR)/, $(OBJ))
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 	mkdir -p $(OBJ_DIR)/utils
+	mkdir -p $(OBJ_DIR)/core
 
 $(OBJ_DIR)/%.o: $(SRCS_DIR)/%.c $(addprefix $(INC_DIR)/, $(HEADERS)) | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -I $(INC_DIR) -I $(addprefix $(LIBFT)/, $(INC_DIR)) -c -o $@ $<

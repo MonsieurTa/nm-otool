@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 16:45:27 by wta               #+#    #+#             */
-/*   Updated: 2020/01/31 19:45:00 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/01 11:16:04 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,28 @@ typedef struct			s_nm
 
 uint32_t				byte_swap32(uint32_t x);
 uint64_t				byte_swap64(uint64_t x);
+
+int						get_header_size(t_nm *nm);
+
+int						get_spec_from_magic(t_nm *nm);
+
+void					handle_sections(t_nm *nm, void *segment_command);
+void					store_sections(t_nm *nm, void *ptr, uint32_t nsects);
+void					*find_section(t_list_info *sections, void *nlist);
+
+void					handle_symtab(t_nm *nm, t_symtab_command *sym);
+void					handle_symbol(t_nm *nm, void *nlist);
+uint8_t					get_symbol_letter(t_nm *nm, void *nlist);
+uint8_t					match_symbol_section(t_nm *nm, void *nlist, uint8_t n_type);
+
+int						handle_load_commands(t_nm *nm);
+
+int						is_32(uint32_t magic);
+int						is_64(uint32_t magic);
+int						is_swap(uint32_t magic);
+
+void					format_symaddr(char dst[], uint64_t addr);
+
+void					push_result(t_nm *nm, uint64_t addr, uint8_t c, char *str);
 
 #endif
