@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:10:14 by wta               #+#    #+#             */
-/*   Updated: 2020/02/01 11:16:14 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/01 11:21:54 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		get_spec_from_magic(t_nm *nm)
 	nm->is_swap = is_swap(nm->magic);
 	nm->nlist_size = nm->is_64 ? sizeof(t_nlist_64) : sizeof(t_nlist);
 	nm->section_size = nm->is_64 ? sizeof(t_section_64) : sizeof(t_section);
-	nm->segment_size = nm->is_64 ? sizeof(t_segment_command_64) : sizeof(t_segment_command);
+	nm->segment_size = nm->is_64 ?
+		sizeof(t_segment_command_64) : sizeof(t_segment_command);
 	return (1);
 }

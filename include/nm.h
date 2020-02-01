@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 16:45:27 by wta               #+#    #+#             */
-/*   Updated: 2020/02/01 11:16:04 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/01 11:22:52 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,10 @@ void					*find_section(t_list_info *sections, void *nlist);
 void					handle_symtab(t_nm *nm, t_symtab_command *sym);
 void					handle_symbol(t_nm *nm, void *nlist);
 uint8_t					get_symbol_letter(t_nm *nm, void *nlist);
-uint8_t					match_symbol_section(t_nm *nm, void *nlist, uint8_t n_type);
+uint8_t					match_symbol_section(
+							t_nm *nm,
+							void *nlist,
+							uint8_t n_type);
 
 int						handle_load_commands(t_nm *nm);
 
@@ -99,6 +102,10 @@ int						is_swap(uint32_t magic);
 
 void					format_symaddr(char dst[], uint64_t addr);
 
-void					push_result(t_nm *nm, uint64_t addr, uint8_t c, char *str);
+void					push_result(
+							t_nm *nm,
+							uint64_t addr,
+							uint8_t c,
+							char *str);
 
 #endif

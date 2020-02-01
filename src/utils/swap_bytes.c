@@ -6,13 +6,14 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:45:02 by wta               #+#    #+#             */
-/*   Updated: 2020/01/26 14:35:48 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/01 11:19:45 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "nm.h"
 #include <stdio.h>
+
 uint32_t	byte_swap32(uint32_t x)
 {
 	return (((x >> 24) & 0xff) | (((x >> 16) & 0xff) << 8)

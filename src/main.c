@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 16:49:57 by wta               #+#    #+#             */
-/*   Updated: 2020/02/01 11:10:52 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/01 11:19:33 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int		main(int argc, char *argv[])
 				nm_start(&nm);
 			munmap(nm.content, filestat.st_size);
 
+			// TODO: move this
 			t_list *node = nm.result.head;
 			while (node) {
 				t_nm_result *res = (t_nm_result*)node->content;
