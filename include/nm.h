@@ -89,8 +89,8 @@ void					handle_sections(t_nm *nm, void *segment_command);
 void					store_sections(t_nm *nm, void *ptr, uint32_t nsects);
 void					*find_section(t_list_info *sections, void *nlist);
 
-void					handle_symtab(t_nm *nm, t_symtab_command *sym);
-void					handle_symbol(t_nm *nm, void *nlist);
+int						handle_symtab(t_nm *nm, t_symtab_command *sym);
+int						handle_symbol(t_nm *nm, void *nlist);
 uint8_t					get_symbol_letter(t_nm *nm, void *nlist);
 uint8_t					match_symbol_section(
 							t_nm *nm,

@@ -6,14 +6,14 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:05:31 by wta               #+#    #+#             */
-/*   Updated: 2020/02/01 11:20:46 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/01 12:12:06 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include "nm.h"
 
-void	handle_symtab(t_nm *nm, t_symtab_command *sym)
+int		handle_symtab(t_nm *nm, t_symtab_command *sym)
 {
 	void		*nlist;
 	uint32_t	offset;
@@ -26,12 +26,15 @@ void	handle_symtab(t_nm *nm, t_symtab_command *sym)
 	i = -1;
 	while (++i < sym->nsyms)
 	{
-		handle_symbol(nm, nlist);
+		if (!ptr_valid_range(nm->content, nm->filestat.st_size, nlist)
+		|| !handle_symbol(nm, nlist))
+			return (0);
 		nlist = (void*)nlist + offset;
 	}
+	return (1);
 }
 
-void	handle_symbol(t_nm *nm, void *nlist)
+int		handle_symbol(t_nm *nm, void *nlist)
 {
 	uint64_t	n_value;
 	uint8_t		n_value_size;
@@ -39,13 +42,16 @@ void	handle_symbol(t_nm *nm, void *nlist)
 	uint8_t		c;
 	char		*symname;
 
+	symname = nm->strtab + *(uint32_t*)nlist;
+	if (!ptr_valid_range(nm->content, nm->filestat.st_size, symname))
+		return (0);
 	offset = nm->is_64 ?
 		offsetof(t_nlist_64, n_value) : offsetof(t_nlist, n_value);
 	n_value_size = nm->is_64 ? sizeof(uint64_t) : sizeof(uint32_t);
 	ft_memcpy(&n_value, nlist + offset, n_value_size);
 	c = get_symbol_letter(nm, nlist);
-	symname = nm->strtab + *(uint32_t*)nlist;
 	push_result(nm, n_value, c, symname);
+	return (1);
 }
 
 uint8_t	get_symbol_letter(t_nm *nm, void *nlist)
