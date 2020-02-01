@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 16:45:27 by wta               #+#    #+#             */
-/*   Updated: 2020/02/01 11:22:52 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/01 11:34:12 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <mach-o/loader.h>
 # include <mach-o/fat.h>
 # include <mach-o/nlist.h>
+# include <sys/stat.h>
 # include "libft.h"
 
 # define IS_SWAP	0x1
@@ -52,6 +53,8 @@ typedef struct			s_nm_result
 
 typedef struct			s_nm
 {
+	t_stat				filestat;
+
 	void				*content;
 	t_list_info			sections;
 
@@ -100,7 +103,7 @@ int						is_32(uint32_t magic);
 int						is_64(uint32_t magic);
 int						is_swap(uint32_t magic);
 
-void					format_symaddr(char dst[], uint64_t addr);
+void					format_symaddr(char c, char dst[], uint64_t addr);
 
 void					push_result(
 							t_nm *nm,

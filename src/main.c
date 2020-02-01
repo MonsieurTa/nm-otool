@@ -6,14 +6,12 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 16:49:57 by wta               #+#    #+#             */
-/*   Updated: 2020/02/01 11:19:33 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/01 11:34:13 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <fcntl.h>
 #include <sys/mman.h>
-#include <sys/stat.h>
 #include <stddef.h>
 #include "ft_printf.h"
 #include "libft.h"
@@ -33,7 +31,6 @@ int		nm_start(t_nm *nm)
 
 int		main(int argc, char *argv[])
 {
-	t_stat	filestat;
 	t_nm	nm;
 	int		fd;
 	int		i;
@@ -46,12 +43,12 @@ int		main(int argc, char *argv[])
 		ft_bzero(&nm, sizeof(nm));
 		if ((fd = open(argv[i], O_RDONLY)) != -1)
 		{
-			fstat(fd, &filestat);
-			nm.content = mmap(NULL, filestat.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+			fstat(fd, &nm.filestat);
+			nm.content = mmap(NULL, nm.filestat.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
 			close(fd);
-			if (filestat.st_size >= 4)
+			if (nm.filestat.st_size >= 4)
 				nm_start(&nm);
-			munmap(nm.content, filestat.st_size);
+			munmap(nm.content, nm.filestat.st_size);
 
 			// TODO: move this
 			t_list *node = nm.result.head;
