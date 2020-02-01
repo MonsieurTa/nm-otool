@@ -105,8 +105,7 @@ int						is_swap(uint32_t magic);
 
 int						ptr_valid_range(void *start, uint32_t length, void *ptr);
 
-
-void					format_symaddr(char c, char dst[], uint64_t addr);
+void					format_symaddr(t_nm *nm, char c, char dst[], uint64_t addr);
 
 void					push_result(
 							t_nm *nm,
