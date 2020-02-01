@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:05:31 by wta               #+#    #+#             */
-/*   Updated: 2020/02/01 12:12:06 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/01 17:25:40 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		handle_symbol(t_nm *nm, void *nlist)
 
 	symname = nm->strtab + *(uint32_t*)nlist;
 	if (!ptr_valid_range(nm->content, nm->filestat.st_size, symname))
-		return (0);
+		symname = NULL;
 	offset = nm->is_64 ?
 		offsetof(t_nlist_64, n_value) : offsetof(t_nlist, n_value);
 	n_value_size = nm->is_64 ? sizeof(uint64_t) : sizeof(uint32_t);
@@ -57,8 +57,10 @@ int		handle_symbol(t_nm *nm, void *nlist)
 uint8_t	get_symbol_letter(t_nm *nm, void *nlist)
 {
 	uint8_t	n_type;
+	uint8_t	tolower;
 
 	n_type = *(uint8_t*)(nlist + sizeof(uint32_t));
+	tolower = !(n_type & N_EXT) ? 'A' - 'a' : 0;
 	if (n_type & N_STAB)
 		return ('-');
 	else if ((n_type & N_TYPE) == N_UNDF)
@@ -69,10 +71,10 @@ uint8_t	get_symbol_letter(t_nm *nm, void *nlist)
 	else if ((n_type & N_TYPE) == N_SECT)
 		return (match_symbol_section(nm, nlist, n_type));
 	else if ((n_type & N_TYPE) == N_ABS)
-		return ('A');
+		return ('A' - tolower);
 	else if ((n_type & N_TYPE) == N_INDR)
-		return ('I');
-	return (0);
+		return ('I' - tolower);
+	return ('?');
 }
 
 uint8_t	match_symbol_section(t_nm *nm, void *nlist, uint8_t n_type)
