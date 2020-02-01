@@ -6,7 +6,7 @@
 #    By: wta <wta@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/28 20:09:26 by wta               #+#    #+#              #
-#    Updated: 2020/02/01 11:15:11 by wta              ###   ########.fr        #
+#    Updated: 2020/02/01 11:42:26 by wta              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ core/load_commands.c	\
 core/magic.c			\
 core/sections.c			\
 core/symbol.c			\
+utils/pointer_check.c	\
 utils/spec.c			\
 utils/swap_bytes.c		\
 main.c

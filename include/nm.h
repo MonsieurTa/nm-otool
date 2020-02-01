@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 16:45:27 by wta               #+#    #+#             */
-/*   Updated: 2020/02/01 11:34:12 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/01 11:42:01 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,9 @@ int						handle_load_commands(t_nm *nm);
 int						is_32(uint32_t magic);
 int						is_64(uint32_t magic);
 int						is_swap(uint32_t magic);
+
+int						ptr_valid_range(void *start, uint32_t length, void *ptr);
+
 
 void					format_symaddr(char c, char dst[], uint64_t addr);
 
