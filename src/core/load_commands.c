@@ -6,24 +6,26 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:04:18 by wta               #+#    #+#             */
-/*   Updated: 2020/02/02 17:43:48 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/02 18:03:38 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include "nm.h"
 
-int		handle_load_commands(t_mach_o *mach_o)
+int		handle_load_commands(t_nm *nm)
 {
+	t_mach_o				*mach_o;
 	t_load_command			*lc;
 	t_symtab_command		*sym;
 	uint32_t				i;
 
+	mach_o = &nm->mach_o;
 	lc = (void*)mach_o->content + mach_o->header_size;
 	i = -1;
 	while (++i < mach_o->ncmds)
 	{
-		if (!ptr_valid_range(mach_o->content, mach_o->filestat.st_size, (void*)lc))
+		if (!ptr_valid_range(mach_o->content, nm->filestat.st_size, (void*)lc))
 			return (0);
 		if (mach_o->is_swap)
 			range_swap32((void*)lc, sizeof(t_load_command) / 4);
@@ -35,7 +37,7 @@ int		handle_load_commands(t_mach_o *mach_o)
 			if (mach_o->is_swap)
 				range_swap32((void*)sym + offsetof(t_symtab_command, symoff),
 					(sizeof(t_symtab_command) - (sizeof(uint32_t) * 2)) / 4);
-			handle_symtab(mach_o, sym);
+			handle_symtab(nm, sym);
 		}
 		lc = (void*)lc + lc->cmdsize;
 	}

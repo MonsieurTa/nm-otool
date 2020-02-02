@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 16:45:27 by wta               #+#    #+#             */
-/*   Updated: 2020/02/02 17:47:13 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/02 18:07:19 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@
 # define IS_64		0x2
 
 typedef struct stat						t_stat;
+
+typedef struct fat_header				t_fat_header;
+typedef struct fat_arch					t_fat_arch;
+typedef struct fat_arch_64				t_fat_arch_64;
 
 typedef struct mach_header				t_mach_header;
 typedef struct mach_header_64			t_mach_header_64;
@@ -53,9 +57,8 @@ typedef struct			s_nm_result
 
 typedef struct			s_mach_o
 {
-	t_stat				filestat;
-
 	void				*content;
+
 	t_list_info			sections;
 
 	t_list_info			result;
@@ -81,6 +84,9 @@ typedef struct			s_mach_o
 typedef struct			s_nm
 {
 	t_mach_o			mach_o;
+
+	t_stat				filestat;
+	void				*content;
 }						t_nm;
 
 uint32_t				byte_swap32(uint32_t x);
@@ -96,15 +102,15 @@ void					handle_sections(t_mach_o *mach_o, void *segment_command);
 void					store_sections(t_mach_o *mach_o, void *ptr, uint32_t nsects);
 void					*find_section(t_list_info *sections, void *nlist);
 
-int						handle_symtab(t_mach_o *mach_o, t_symtab_command *sym);
-int						handle_symbol(t_mach_o *mach_o, void *nlist);
+int						handle_symtab(t_nm *nm, t_symtab_command *sym);
+int						handle_symbol(t_nm *nm, void *nlist);
 uint8_t					get_symbol_letter(t_mach_o *mach_o, void *nlist);
 uint8_t					match_symbol_section(
 							t_mach_o *mach_o,
 							void *nlist,
 							uint8_t n_type);
 
-int						handle_load_commands(t_mach_o *mach_o);
+int						handle_load_commands(t_nm *nm);
 
 int						is_32(uint32_t magic);
 int						is_64(uint32_t magic);
