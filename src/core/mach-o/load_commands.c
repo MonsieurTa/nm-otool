@@ -6,14 +6,14 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:04:18 by wta               #+#    #+#             */
-/*   Updated: 2020/02/02 18:03:38 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/02 18:38:41 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include "nm.h"
 
-int		handle_load_commands(t_nm *nm)
+int	handle_load_commands(t_nm *nm)
 {
 	t_mach_o				*mach_o;
 	t_load_command			*lc;

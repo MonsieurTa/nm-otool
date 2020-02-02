@@ -6,10 +6,11 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:07:55 by wta               #+#    #+#             */
-/*   Updated: 2020/02/01 11:08:24 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/02 18:13:23 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <mach-o/fat.h>
 #include <mach-o/loader.h>
 
 int		is_32(uint32_t magic)
@@ -25,4 +26,10 @@ int		is_64(uint32_t magic)
 int		is_swap(uint32_t magic)
 {
 	return (magic == MH_CIGAM || magic == MH_CIGAM_64);
+}
+
+int		is_fat(uint32_t magic)
+{
+	return (magic == FAT_MAGIC || magic == FAT_CIGAM
+	|| magic == FAT_MAGIC_64 || magic == FAT_CIGAM_64);
 }

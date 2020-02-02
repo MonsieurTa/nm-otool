@@ -6,14 +6,13 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:10:14 by wta               #+#    #+#             */
-/*   Updated: 2020/02/02 17:44:49 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/02 18:38:46 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nm.h"
-#include <stdio.h>
 
-int		get_mach_o_spec(t_mach_o *mach_o)
+int	get_mach_o_spec(t_mach_o *mach_o)
 {
 	t_mach_header_64	mach_header;
 

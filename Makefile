@@ -6,7 +6,7 @@
 #    By: wta <wta@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/28 20:09:26 by wta               #+#    #+#              #
-#    Updated: 2020/02/01 17:06:29 by wta              ###   ########.fr        #
+#    Updated: 2020/02/02 18:35:55 by wta              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,18 +22,22 @@ LIBFT = libft
 HEADERS =	\
 nm.h
 
-SRCS =					\
-core/format.c			\
-core/header.c			\
-core/list.c				\
-core/load_commands.c	\
-core/magic.c			\
-core/sections.c			\
-core/sort.c				\
-core/symbol.c			\
-utils/pointer_check.c	\
-utils/spec.c			\
-utils/swap_bytes.c		\
+SRCS =							\
+core/fat/handler.c				\
+core/mach-o/format.c			\
+core/mach-o/handler.c			\
+core/mach-o/header.c			\
+core/mach-o/list.c				\
+core/mach-o/load_commands.c		\
+core/mach-o/magic.c				\
+core/mach-o/sections.c			\
+core/mach-o/sort.c				\
+core/mach-o/symbol.c			\
+utils/compare.c					\
+utils/pointer_check.c			\
+utils/print.c					\
+utils/spec.c					\
+utils/swap_bytes.c				\
 main.c
 
 OBJ = $(SRCS:.c=.o)
@@ -48,6 +52,8 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 	mkdir -p $(OBJ_DIR)/utils
 	mkdir -p $(OBJ_DIR)/core
+	mkdir -p $(OBJ_DIR)/core/fat
+	mkdir -p $(OBJ_DIR)/core/mach-o
 
 $(OBJ_DIR)/%.o: $(SRCS_DIR)/%.c $(addprefix $(INC_DIR)/, $(HEADERS)) | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -I $(INC_DIR) -I $(addprefix $(LIBFT)/, $(INC_DIR)) -c -o $@ $<

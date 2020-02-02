@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   header.c                                           :+:      :+:    :+:   */
+/*   compare.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/01 11:07:33 by wta               #+#    #+#             */
-/*   Updated: 2020/02/02 17:42:13 by wta              ###   ########.fr       */
+/*   Created: 2020/02/02 18:29:44 by wta               #+#    #+#             */
+/*   Updated: 2020/02/02 18:29:51 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nm.h"
 
-int		get_mach_o_header_size(t_mach_o *mach_o)
+int		cmp_addr(t_nm_result *a, t_nm_result *b)
 {
-	if (is_32(mach_o->magic))
-		return ((mach_o->header_size = sizeof(t_mach_header)) != 0);
-	else if (is_64(mach_o->magic))
-		return ((mach_o->header_size = sizeof(t_mach_header_64)) != 0);
-	return (0);
+	int32_t	name_diff;
+
+	if ((name_diff = ft_strcmp(a->symname, b->symname)) == 0)
+		return (ft_strcmp(a->symaddr, b->symaddr));
+	return (name_diff);
 }

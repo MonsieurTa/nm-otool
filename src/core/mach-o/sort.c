@@ -6,14 +6,14 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 12:34:27 by wta               #+#    #+#             */
-/*   Updated: 2020/02/02 17:06:35 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/02 18:40:19 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdint.h>
 #include "nm.h"
 
-void	divide_list(t_list_info *list, t_list_info *front, t_list_info *back)
+static void	divide_list(t_list_info *list, t_list_info *front, t_list_info *back)
 {
 	uint32_t	mid;
 	t_list		*node;
@@ -34,7 +34,7 @@ void	divide_list(t_list_info *list, t_list_info *front, t_list_info *back)
 	front->tail = tmp;
 }
 
-void	apply_merge(t_list_info **list, t_list_info *a, t_list_info *b,
+static void	apply_merge(t_list_info **list, t_list_info *a, t_list_info *b,
 					int (*cmp)(t_nm_result*, t_nm_result*))
 {
 	t_nm_result	*a_result;
@@ -58,7 +58,7 @@ void	apply_merge(t_list_info **list, t_list_info *a, t_list_info *b,
 		ft_pushback(*list, pop(b));
 }
 
-void	merge_list(t_list_info *list, t_list_info *a, t_list_info *b,
+static void	merge_list(t_list_info *list, t_list_info *a, t_list_info *b,
 					int (*cmp)(t_nm_result*, t_nm_result*))
 {
 	if (a->size == 0)
@@ -68,7 +68,7 @@ void	merge_list(t_list_info *list, t_list_info *a, t_list_info *b,
 	apply_merge(&list, b, a, cmp);
 }
 
-void	merge_sort(t_list_info *list, int (*cmp)(t_nm_result*, t_nm_result*))
+static void	merge_sort(t_list_info *list, int (*cmp)(t_nm_result*, t_nm_result*))
 {
 	t_list_info	front;
 	t_list_info	back;
@@ -81,7 +81,7 @@ void	merge_sort(t_list_info *list, int (*cmp)(t_nm_result*, t_nm_result*))
 	merge_list(list, &front, &back, cmp);
 }
 
-void	sort(t_list_info *list, int (*cmp)(t_nm_result*, t_nm_result*))
+void		sort(t_list_info *list, int (*cmp)(t_nm_result*, t_nm_result*))
 {
 	merge_sort(list, cmp);
 }
