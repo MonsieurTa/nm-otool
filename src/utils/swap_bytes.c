@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:45:02 by wta               #+#    #+#             */
-/*   Updated: 2020/02/02 17:01:49 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/02 17:46:19 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ void		range_swap32(void *start, uint32_t len)
 	}
 }
 
-void	nlist_swap(t_nm *nm, void *nlist)
+void	nlist_swap(t_mach_o *mach_o, void *nlist)
 {
 	uint32_t	n_value_offset;
 	void		*ptr;
 
 	*(uint32_t*)nlist = byte_swap32(*(uint32_t*)nlist);
-	if (nm->is_64)
+	if (mach_o->is_64)
 	{
 		n_value_offset = offsetof(t_nlist_64, n_value);
 		ptr = nlist + n_value_offset;

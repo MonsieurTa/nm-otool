@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 16:45:27 by wta               #+#    #+#             */
-/*   Updated: 2020/02/02 17:01:48 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/02 17:47:13 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct			s_nm_result
 	char				symchar;
 }						t_nm_result;
 
-typedef struct			s_nm
+typedef struct			s_mach_o
 {
 	t_stat				filestat;
 
@@ -76,30 +76,35 @@ typedef struct			s_nm
 	uint32_t			strtabsize;
 
 	uint32_t			nsects;
+}						t_mach_o;
+
+typedef struct			s_nm
+{
+	t_mach_o			mach_o;
 }						t_nm;
 
 uint32_t				byte_swap32(uint32_t x);
 uint64_t				byte_swap64(uint64_t x);
 void					range_swap32(void *start, uint32_t len);
-void					nlist_swap(t_nm *nm, void *nlist);
+void					nlist_swap(t_mach_o *mach_o, void *nlist);
 
-int						get_header_size(t_nm *nm);
+int						get_mach_o_header_size(t_mach_o *mach_o);
 
-int						get_spec_from_magic(t_nm *nm);
+int						get_mach_o_spec(t_mach_o *mach_o);
 
-void					handle_sections(t_nm *nm, void *segment_command);
-void					store_sections(t_nm *nm, void *ptr, uint32_t nsects);
+void					handle_sections(t_mach_o *mach_o, void *segment_command);
+void					store_sections(t_mach_o *mach_o, void *ptr, uint32_t nsects);
 void					*find_section(t_list_info *sections, void *nlist);
 
-int						handle_symtab(t_nm *nm, t_symtab_command *sym);
-int						handle_symbol(t_nm *nm, void *nlist);
-uint8_t					get_symbol_letter(t_nm *nm, void *nlist);
+int						handle_symtab(t_mach_o *mach_o, t_symtab_command *sym);
+int						handle_symbol(t_mach_o *mach_o, void *nlist);
+uint8_t					get_symbol_letter(t_mach_o *mach_o, void *nlist);
 uint8_t					match_symbol_section(
-							t_nm *nm,
+							t_mach_o *mach_o,
 							void *nlist,
 							uint8_t n_type);
 
-int						handle_load_commands(t_nm *nm);
+int						handle_load_commands(t_mach_o *mach_o);
 
 int						is_32(uint32_t magic);
 int						is_64(uint32_t magic);
@@ -107,10 +112,10 @@ int						is_swap(uint32_t magic);
 
 int						ptr_valid_range(void *start, uint32_t length, void *ptr);
 
-void					format_symaddr(t_nm *nm, char c, char dst[], uint64_t addr);
+void					format_symaddr(t_mach_o *mach_o, char c, char dst[], uint64_t addr);
 
 void					push_result(
-							t_nm *nm,
+							t_mach_o *mach_o,
 							uint64_t addr,
 							uint8_t c,
 							char *str);

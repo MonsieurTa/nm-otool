@@ -6,25 +6,25 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:06:26 by wta               #+#    #+#             */
-/*   Updated: 2020/02/01 17:37:21 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/02 17:43:17 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "nm.h"
 
-void	push_result(t_nm *nm, uint64_t addr, uint8_t c, char *str)
+void	push_result(t_mach_o *mach_o, uint64_t addr, uint8_t c, char *str)
 {
 	static char		bad_string_index[] = "bad string index";
 	t_nm_result		node_content;
 	t_list			*node;
 
 	ft_bzero(&node_content, sizeof(t_nm_result));
-	format_symaddr(nm, c, node_content.symaddr, addr);
+	format_symaddr(mach_o, c, node_content.symaddr, addr);
 	node_content.symchar = c;
 	node_content.symname = str ? str : bad_string_index;
 	node = ft_lstnew(&node_content, sizeof(t_nm_result));
-	ft_pushback(&nm->result, node);
+	ft_pushback(&mach_o->result, node);
 }
 
 t_list	*pop(t_list_info *list)
