@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:10:14 by wta               #+#    #+#             */
-/*   Updated: 2020/02/02 19:06:18 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/02 19:26:55 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	get_mach_o_spec(t_mach_o *mach_o)
 	ft_memcpy((void *)&mach_header, mach_o->content, mach_o->header_size);
 	mach_o->ncmds = mach_header.ncmds;
 	mach_o->is_64 = is_64(mach_o->magic);
-	mach_o->is_swap = is_swap(mach_o->magic);
+	mach_o->is_swap = is_cigam(mach_o->magic);
 	mach_o->nlist_size = mach_o->is_64 ? sizeof(t_nlist_64) : sizeof(t_nlist);
 	mach_o->section_size = mach_o->is_64 ?
 		sizeof(t_section_64) : sizeof(t_section);
