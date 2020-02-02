@@ -6,14 +6,12 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 12:34:27 by wta               #+#    #+#             */
-/*   Updated: 2020/02/01 16:31:32 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/02 17:06:35 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdint.h>
 #include "nm.h"
-
-#include "ft_printf.h"
 
 void	divide_list(t_list_info *list, t_list_info *front, t_list_info *back)
 {

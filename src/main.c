@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 16:49:57 by wta               #+#    #+#             */
-/*   Updated: 2020/02/01 17:35:56 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/02 17:07:05 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,11 @@ int		main(int argc, char *argv[])
 		if ((fd = open(argv[i], O_RDONLY)) != -1)
 		{
 			fstat(fd, &nm.filestat);
-			nm.content = mmap(NULL, nm.filestat.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+			nm.content = mmap(NULL, nm.filestat.st_size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
 			close(fd);
 			if (nm.filestat.st_size >= 4)
 				nm_start(&nm);
+			ft_printf("%x\n", nm.magic);
 			sort(&nm.result, cmp_addr);
 
 			t_list *node = nm.result.head;

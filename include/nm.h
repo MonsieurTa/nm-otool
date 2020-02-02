@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 16:45:27 by wta               #+#    #+#             */
-/*   Updated: 2020/02/01 16:41:38 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/02 17:01:48 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ typedef struct			s_nm
 
 uint32_t				byte_swap32(uint32_t x);
 uint64_t				byte_swap64(uint64_t x);
+void					range_swap32(void *start, uint32_t len);
+void					nlist_swap(t_nm *nm, void *nlist);
 
 int						get_header_size(t_nm *nm);
 

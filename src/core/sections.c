@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:04:49 by wta               #+#    #+#             */
-/*   Updated: 2020/02/01 11:21:38 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/02 16:28:07 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	handle_sections(t_nm *nm, void *segment_command)
 		offsetof(t_segment_command_64, nsects)
 		: offsetof(t_segment_command, nsects);
 	nsects = *(uint32_t*)(segment_command + offset);
+	nsects = nm->is_swap ? byte_swap32(nsects) : nsects;
 	nm->nsects += nsects;
 	store_sections(nm, segment_command + nm->segment_size, nsects);
 }

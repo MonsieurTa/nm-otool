@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:05:31 by wta               #+#    #+#             */
-/*   Updated: 2020/02/01 17:25:40 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/02 17:06:36 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int		handle_symbol(t_nm *nm, void *nlist)
 	uint8_t		c;
 	char		*symname;
 
+	if (nm->is_swap)
+		nlist_swap(nm, nlist);
 	symname = nm->strtab + *(uint32_t*)nlist;
 	if (!ptr_valid_range(nm->content, nm->filestat.st_size, symname))
 		symname = NULL;
