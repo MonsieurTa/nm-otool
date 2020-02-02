@@ -6,12 +6,12 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:05:31 by wta               #+#    #+#             */
-/*   Updated: 2020/02/02 18:42:41 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/02 19:06:18 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
-#include "nm.h"
+#include "ft_nm.h"
 
 static uint8_t	match_symbol_section(t_mach_o *mach_o, void *nlist,
 	uint8_t n_type)

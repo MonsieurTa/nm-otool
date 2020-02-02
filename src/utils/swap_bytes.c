@@ -6,13 +6,13 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:45:02 by wta               #+#    #+#             */
-/*   Updated: 2020/02/02 18:43:39 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/02 19:06:18 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stddef.h>
-#include "nm.h"
+#include "ft_nm.h"
 
 uint32_t	byte_swap32(uint32_t x)
 {

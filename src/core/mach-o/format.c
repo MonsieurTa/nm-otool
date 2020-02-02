@@ -6,11 +6,11 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:06:51 by wta               #+#    #+#             */
-/*   Updated: 2020/02/02 18:50:43 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/02 19:06:18 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "nm.h"
+#include "ft_nm.h"
 #include "libft.h"
 
 void	format_symaddr(t_mach_o *mach_o, char c, char dst[], uint64_t addr)

@@ -6,12 +6,12 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:04:18 by wta               #+#    #+#             */
-/*   Updated: 2020/02/02 18:54:54 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/02 19:06:18 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
-#include "nm.h"
+#include "ft_nm.h"
 
 static void	process_symtab(t_nm *nm, void *lc)
 {

@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 16:49:57 by wta               #+#    #+#             */
-/*   Updated: 2020/02/02 18:35:27 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/02 19:06:18 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stddef.h>
 #include "ft_printf.h"
 #include "libft.h"
-#include "nm.h"
+#include "ft_nm.h"
 
 char	g_archive_prefix[] = "!<arch>\n";
 

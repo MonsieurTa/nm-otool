@@ -6,12 +6,12 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:06:26 by wta               #+#    #+#             */
-/*   Updated: 2020/02/02 17:43:17 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/02 19:06:18 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "nm.h"
+#include "ft_nm.h"
 
 void	push_result(t_mach_o *mach_o, uint64_t addr, uint8_t c, char *str)
 {

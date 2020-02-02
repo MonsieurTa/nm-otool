@@ -6,13 +6,13 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/02 18:34:43 by wta               #+#    #+#             */
-/*   Updated: 2020/02/02 18:51:36 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/02 19:06:18 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_printf.h"
-#include "nm.h"
+#include "ft_nm.h"
 
 void	print_result(t_list *head)
 {

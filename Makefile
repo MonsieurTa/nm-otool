@@ -6,11 +6,11 @@
 #    By: wta <wta@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/28 20:09:26 by wta               #+#    #+#              #
-#    Updated: 2020/02/02 18:35:55 by wta              ###   ########.fr        #
+#    Updated: 2020/02/02 19:05:40 by wta              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = nm
+NAME = ft_nm
 CFLAGS = -Wall -Wextra -Werror# -g3 -fsanitize=address
 CC = cc -O2
 
@@ -20,7 +20,7 @@ SRCS_DIR =	src
 LIBFT = libft
 
 HEADERS =	\
-nm.h
+ft_nm.h
 
 SRCS =							\
 core/fat/handler.c				\

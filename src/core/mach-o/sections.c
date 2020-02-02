@@ -6,13 +6,13 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:04:49 by wta               #+#    #+#             */
-/*   Updated: 2020/02/02 18:39:31 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/02 19:06:18 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include "libft.h"
-#include "nm.h"
+#include "ft_nm.h"
 
 static void	store_sections(t_mach_o *mach_o, void *ptr, uint32_t nsects)
 {
