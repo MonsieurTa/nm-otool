@@ -6,18 +6,30 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:04:18 by wta               #+#    #+#             */
-/*   Updated: 2020/02/02 18:38:41 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/02 18:54:54 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include "nm.h"
 
-int	handle_load_commands(t_nm *nm)
+static void	process_symtab(t_nm *nm, void *lc)
+{
+	t_mach_o			*mach_o;
+	t_symtab_command	*sym;
+
+	mach_o = &nm->mach_o;
+	sym = (t_symtab_command*)lc;
+	if (mach_o->is_swap)
+		range_swap32((void*)sym + offsetof(t_symtab_command, symoff),
+			(sizeof(t_symtab_command) - (sizeof(uint32_t) * 2)) / 4);
+	handle_symtab(nm, sym);
+}
+
+int			handle_load_commands(t_nm *nm)
 {
 	t_mach_o				*mach_o;
 	t_load_command			*lc;
-	t_symtab_command		*sym;
 	uint32_t				i;
 
 	mach_o = &nm->mach_o;
@@ -32,13 +44,7 @@ int	handle_load_commands(t_nm *nm)
 		if (lc->cmd == LC_SEGMENT || lc->cmd == LC_SEGMENT_64)
 			handle_sections(mach_o, (void*)lc);
 		else if (lc->cmd == LC_SYMTAB)
-		{
-			sym = (t_symtab_command*)(void*)lc;
-			if (mach_o->is_swap)
-				range_swap32((void*)sym + offsetof(t_symtab_command, symoff),
-					(sizeof(t_symtab_command) - (sizeof(uint32_t) * 2)) / 4);
-			handle_symtab(nm, sym);
-		}
+			process_symtab(nm, (void*)lc);
 		lc = (void*)lc + lc->cmdsize;
 	}
 	return (1);
