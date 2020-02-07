@@ -16,6 +16,7 @@
 # include <mach-o/loader.h>
 # include <mach-o/fat.h>
 # include <mach-o/nlist.h>
+# include <mach/machine.h>
 # include <sys/stat.h>
 # include "libft.h"
 
@@ -42,6 +43,18 @@ typedef struct segment_command_64		t_segment_command_64;
 typedef struct section					t_section;
 typedef struct section_64				t_section_64;
 
+extern char		*(*g_dispatchers[])(cpu_subtype_t);
+extern char		*g_vax[];
+extern char		*g_mc680[];
+extern char		*g_x86[];
+extern char		*g_mc98000[];
+extern char		*g_hppa[];
+extern char		*g_arm[];
+extern char		*g_mc88000[];
+extern char		*g_sparc[];
+extern char		*g_i860[];
+extern char		*g_ppc[];
+
 typedef struct			s_nm_result
 {
 	char	*symname;
@@ -60,7 +73,7 @@ typedef struct			s_mach_o
 	uint32_t		magic;
 
 	uint8_t			is_64;
-	uint8_t			is_swap;
+	uint8_t			is_cigam;
 
 	uint8_t			nlist_size;
 	uint8_t			section_size;
@@ -77,12 +90,18 @@ typedef struct			s_mach_o
 
 typedef struct			s_fat
 {
-	t_fat_header	fat_header;
+	t_fat_header		fat_header;
 
-	uint8_t			is_64;
-	uint8_t			is_swap;
+	uint8_t				is_64;
+	uint8_t				is_cigam;
 
-	uint32_t		fat_arch_size;
+	cpu_type_t			cputype;
+	cpu_subtype_t		cpusubtype;
+	uint32_t			align;
+
+	void				*fat_arch_struct;
+	uint32_t			fat_arch_size;
+	uint64_t			mach_o_size;
 }						t_fat;
 
 typedef struct			s_nm
@@ -92,24 +111,30 @@ typedef struct			s_nm
 
 	t_stat			filestat;
 	void			*content;
+	char			*curr_argv;
 }						t_nm;
 
 uint32_t				byte_swap32(uint32_t x);
 uint64_t				byte_swap64(uint64_t x);
 void					range_swap32(void *start, uint32_t len);
-void					nlist_swap(t_mach_o *mach_o, void *nlist);
+void					range_swap64(void *start, uint32_t len);
+void					nlist_swap(t_nm *nm, void *nlist);
+void					swap_fat_arch(void *ptr);
+void					swap_fat_arch_64(void *ptr);
 
 int						cmp_addr(t_nm_result *a, t_nm_result *b);
 
 int						handle_fat(t_nm *nm);
 int						handle_mach_o(t_nm *nm);
+void					handle_fat_arch_struct(t_nm *nm);
+
 
 int						get_mach_o_header_size(t_mach_o *mach_o);
 
-int						get_mach_o_spec(t_mach_o *mach_o);
+int						get_mach_o_spec(t_nm *nm);
 
 void					handle_sections(
-							t_mach_o *mach_o,
+							t_nm *nm,
 							void *segment_command);
 void					*find_section(t_list_info *sections, void *nlist);
 
@@ -136,14 +161,26 @@ void					format_symaddr(
 void					print_result(t_list *head);
 
 void					push_result(
-							t_mach_o *mach_o,
+							t_nm *nm,
 							uint64_t addr,
 							uint8_t c,
 							char *str);
+void					rm_list(t_list_info *list);
 
 t_list					*pop(t_list_info *list);
 void					sort(
 							t_list_info *list,
 							int (*cmp)(t_nm_result*, t_nm_result*));
+
+char					*vax(cpu_subtype_t subtype);
+char					*mc680(cpu_subtype_t subtype);
+char					*x86(cpu_subtype_t subtype);
+char					*mc98000(cpu_subtype_t subtype);
+char					*hppa(cpu_subtype_t subtype);
+char					*arm(cpu_subtype_t subtype);
+char					*mc88000(cpu_subtype_t subtype);
+char					*sparc(cpu_subtype_t subtype);
+char					*i860(cpu_subtype_t subtype);
+char					*ppc(cpu_subtype_t subtype);
 
 #endif

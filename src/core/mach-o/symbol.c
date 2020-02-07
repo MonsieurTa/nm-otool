@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:05:31 by wta               #+#    #+#             */
-/*   Updated: 2020/02/02 19:06:18 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/07 13:04:57 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ static int		handle_symbol(t_nm *nm, void *nlist)
 	char		*symname;
 
 	mach_o = &nm->mach_o;
-	if (mach_o->is_swap)
-		nlist_swap(mach_o, nlist);
+	if (mach_o->is_cigam)
+		nlist_swap(nm, nlist);
 	symname = mach_o->strtab + *(uint32_t*)nlist;
 	if (!ptr_valid_range(mach_o->content, nm->filestat.st_size, symname))
 		symname = NULL;
@@ -79,7 +79,7 @@ static int		handle_symbol(t_nm *nm, void *nlist)
 	ft_memcpy(&n_value, nlist + offset, mach_o->is_64 ?
 		sizeof(uint64_t) : sizeof(uint32_t));
 	c = get_symbol_letter(mach_o, nlist);
-	push_result(mach_o, n_value, c, symname);
+	push_result(nm, n_value, c, symname);
 	return (1);
 }
 
