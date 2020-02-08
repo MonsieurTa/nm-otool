@@ -6,23 +6,23 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:09:55 by wta               #+#    #+#             */
-/*   Updated: 2020/02/07 18:55:58 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/08 18:03:37 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mach/machine.h>
 #include <unistd.h>
 
-char	*g_mc98000[] = {
-	"mc98000_all", "mc98601",
-};
 
 char	*mc98000(cpu_subtype_t subtype)
 {
+	static char	*mc98000_names[] = {
+		"mc98000_all", "mc98601",
+	};
 	uint32_t	len;
 
-	len = sizeof(g_mc98000) / sizeof(char*);
+	len = sizeof(mc98000_names) / sizeof(char*);
 	if ((uint32_t)subtype < len)
-		return g_mc98000[subtype];
+		return mc98000_names[subtype];
 	return NULL;
 }

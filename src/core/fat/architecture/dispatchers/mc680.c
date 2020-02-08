@@ -6,23 +6,23 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:09:55 by wta               #+#    #+#             */
-/*   Updated: 2020/02/07 18:55:58 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/08 18:04:19 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mach/machine.h>
 #include <unistd.h>
 
-char	*g_mc680[] = 	{
-	NULL, "mc680x0_all", "mc68030", "mc68040", "mc68030_only",
-};
 
 char	*mc680(cpu_subtype_t subtype)
 {
+	static char	*mc680_names[] = 	{
+		NULL, "mc680x0_all", "mc68030", "mc68040", "mc68030_only",
+	};
 	uint32_t	len;
 
-	len = sizeof(g_mc680) / sizeof(char*);
+	len = sizeof(mc680_names) / sizeof(char*);
 	if ((uint32_t)subtype < len)
-		return g_mc680[subtype];
+		return mc680_names[subtype];
 	return NULL;
 }

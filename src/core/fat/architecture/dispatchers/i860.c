@@ -6,23 +6,23 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:09:55 by wta               #+#    #+#             */
-/*   Updated: 2020/02/07 18:55:58 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/08 18:04:35 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mach/machine.h>
 #include <unistd.h>
 
-char	*g_i860[] = {
-	"i860", "i860 860",
-};
 
 char	*i860(cpu_subtype_t subtype)
 {
+	static char	*i860_names[] = {
+		"i860", "i860 860",
+	};
 	uint32_t	len;
 
-	len = sizeof(g_i860) / sizeof(char*);
+	len = sizeof(i860_names) / sizeof(char*);
 	if ((uint32_t)subtype < len)
-		return g_i860[subtype];
+		return i860_names[subtype];
 	return NULL;
 }
