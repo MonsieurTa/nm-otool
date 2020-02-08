@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:09:55 by wta               #+#    #+#             */
-/*   Updated: 2020/02/08 18:03:46 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/08 19:03:05 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ char	*ppc(cpu_subtype_t subtype)
 	len = sizeof(ppc_names) / sizeof(char*);
 	if ((uint32_t)subtype < len)
 		return ppc_names[subtype];
-	return NULL;
+	return (ppc_names[0]);
 }

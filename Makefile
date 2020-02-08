@@ -6,7 +6,7 @@
 #    By: wta <wta@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/28 20:09:26 by wta               #+#    #+#              #
-#    Updated: 2020/02/07 19:11:18 by wta              ###   ########.fr        #
+#    Updated: 2020/02/08 17:12:55 by wta              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ core/mach-o/magic.c								\
 core/mach-o/sections.c							\
 core/mach-o/sort.c								\
 core/mach-o/symbol.c							\
+error/error.c									\
 utils/compare.c									\
 utils/pointer_check.c							\
 utils/print.c									\
@@ -63,12 +64,13 @@ $(NAME): $(addprefix $(OBJ_DIR)/, $(OBJ))
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
-	mkdir -p $(OBJ_DIR)/utils
 	mkdir -p $(OBJ_DIR)/core
 	mkdir -p $(OBJ_DIR)/core/fat
 	mkdir -p $(OBJ_DIR)/core/fat/architecture
 	mkdir -p $(OBJ_DIR)/core/fat/architecture/dispatchers
 	mkdir -p $(OBJ_DIR)/core/mach-o
+	mkdir -p $(OBJ_DIR)/error
+	mkdir -p $(OBJ_DIR)/utils
 
 $(OBJ_DIR)/%.o: $(SRCS_DIR)/%.c $(addprefix $(INC_DIR)/, $(HEADERS)) | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -I $(INC_DIR) -I $(addprefix $(LIBFT)/, $(INC_DIR)) -c -o $@ $<

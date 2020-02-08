@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:09:55 by wta               #+#    #+#             */
-/*   Updated: 2020/02/08 18:01:27 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/08 19:29:28 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,17 @@
 
 char	*x86(cpu_subtype_t subtype)
 {
-	static char	*x86_names = {
-		"x86_64",            "x86_archi1", "x86_64_h",    "i386",
-		"386",               "486",        "486sx",       "pent",
+	static char	*x86_names[] = {
+		"x86_64",            "x86_archi1", "x86_64h",    "i386",
+		"486",               "486sx",      "pent",
 		"pentpro",           "pentii_m3",  "pentii_m5",   "celeron",
 		"celeron_mobile",    "pentium_3",  "pentium_3_m", "pentium_3_xeon",
-		"pentium_m",         "pentium_4",  "pentium_4_m", "pentium_itanium",
-		"pentium_itanium_2", "xeon",       "xeon_mp",     "intel_family_max",
+		"pentium_m",         "pentium_4",  "pentium_4_m", "itanium",
+		"itanium_2",         "xeon",       "xeon_mp",     "intel_family_max",
 	};
 	uint32_t	len;
 
 	len = sizeof(x86_names) / sizeof(char*);
-	if (subtype == CPU_SUBTYPE_X86_ALL)
-		return (x86_names[0]);
-	if (subtype == CPU_SUBTYPE_X86_ARCH1)
-		return (x86_names[1]);
-	if (subtype == CPU_SUBTYPE_X86_64_H)
-		return (x86_names[2]);
 	if (subtype == CPU_SUBTYPE_I386_ALL)
 		return (x86_names[3]);
 	if (subtype == CPU_SUBTYPE_486)
@@ -72,7 +66,11 @@ char	*x86(cpu_subtype_t subtype)
 		return (x86_names[21]);
 	if (subtype == CPU_SUBTYPE_INTEL_FAMILY_MAX)
 		return (x86_names[22]);
-	if (subtype == CPU_SUBTYPE_INTEL_MODEL_ALL)
-		return (x86_names[23]);
-	return NULL;
+	if (subtype == CPU_SUBTYPE_X86_ALL)
+		return (x86_names[0]);
+	if (subtype == CPU_SUBTYPE_X86_ARCH1)
+		return (x86_names[1]);
+	if (subtype == CPU_SUBTYPE_X86_64_H)
+		return (x86_names[2]);
+	return (NULL);
 }

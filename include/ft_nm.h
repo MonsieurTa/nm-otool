@@ -20,8 +20,10 @@
 # include <sys/stat.h>
 # include "libft.h"
 
-# define IS_SWAP	0x1
-# define IS_64		0x2
+# define IS_SWAP					(0x1)
+# define IS_64						(0x2)
+
+# define ERR_TRUNCATED_OR_MALFORMED	(1)
 
 typedef struct stat						t_stat;
 
@@ -44,16 +46,6 @@ typedef struct section					t_section;
 typedef struct section_64				t_section_64;
 
 extern char		*(*g_dispatchers[])(cpu_subtype_t);
-extern char		*g_vax[];
-extern char		*g_mc680[];
-extern char		*g_x86[];
-extern char		*g_mc98000[];
-extern char		*g_hppa[];
-extern char		*g_arm[];
-extern char		*g_mc88000[];
-extern char		*g_sparc[];
-extern char		*g_i860[];
-extern char		*g_ppc[];
 
 typedef struct			s_nm_result
 {
@@ -102,6 +94,7 @@ typedef struct			s_fat
 	void				*fat_arch_struct;
 	uint32_t			fat_arch_size;
 	uint64_t			mach_o_size;
+	uint64_t			offset_to_mach_o;
 }						t_fat;
 
 typedef struct			s_nm
@@ -111,7 +104,9 @@ typedef struct			s_nm
 
 	t_stat			filestat;
 	void			*content;
+	char			*bin_location;
 	char			*curr_argv;
+	int				found_host_arch;
 }						t_nm;
 
 uint32_t				byte_swap32(uint32_t x);
@@ -126,8 +121,9 @@ int						cmp_addr(t_nm_result *a, t_nm_result *b);
 
 int						handle_fat(t_nm *nm);
 int						handle_mach_o(t_nm *nm);
-void					handle_fat_arch_struct(t_nm *nm);
+int						handle_fat_arch_struct(t_nm *nm);
 
+char					*sarchitecture(t_nm *nm);
 
 int						get_mach_o_header_size(t_mach_o *mach_o);
 
@@ -182,5 +178,8 @@ char					*mc88000(cpu_subtype_t subtype);
 char					*sparc(cpu_subtype_t subtype);
 char					*i860(cpu_subtype_t subtype);
 char					*ppc(cpu_subtype_t subtype);
+
+int						throw_error(t_nm *nm, int err_code);
+
 
 #endif

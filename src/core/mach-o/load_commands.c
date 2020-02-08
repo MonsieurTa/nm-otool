@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:04:18 by wta               #+#    #+#             */
-/*   Updated: 2020/02/07 13:07:49 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/08 17:45:48 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int			handle_load_commands(t_nm *nm)
 	while (++i < mach_o->ncmds)
 	{
 		if (!ptr_valid_range(mach_o->content, nm->filestat.st_size, (void*)lc))
-			return (0);
+			return (throw_error(nm, ERR_TRUNCATED_OR_MALFORMED));
 		if (mach_o->is_cigam)
 			range_swap32((void*)lc, sizeof(t_load_command) / 4);
 		if (lc->cmd == LC_SEGMENT || lc->cmd == LC_SEGMENT_64)

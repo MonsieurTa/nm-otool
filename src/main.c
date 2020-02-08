@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 16:49:57 by wta               #+#    #+#             */
-/*   Updated: 2020/02/07 19:12:43 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/08 18:20:23 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 #include <stddef.h>
 #include "libft.h"
 #include "ft_nm.h"
-
-char	g_archive_prefix[] = "!<arch>\n";
 
 int		main(int argc, char *argv[])
 {
@@ -31,6 +29,7 @@ int		main(int argc, char *argv[])
 	{
 		ft_bzero(&nm, sizeof(t_nm));
 		nm.curr_argv = argv[i];
+		nm.bin_location = argv[0];
 		if ((fd = open(argv[i], O_RDONLY)) != -1)
 		{
 			fstat(fd, &nm.filestat);

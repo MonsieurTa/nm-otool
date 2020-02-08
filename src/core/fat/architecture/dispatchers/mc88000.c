@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:09:55 by wta               #+#    #+#             */
-/*   Updated: 2020/02/08 18:04:06 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/08 19:04:38 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ char	*mc88000(cpu_subtype_t subtype)
 	len = sizeof(mc88000_names) / sizeof(char*);
 	if ((uint32_t)subtype < len)
 		return mc88000_names[subtype];
-	return NULL;
+	return (mc88000_names[0]);
 }

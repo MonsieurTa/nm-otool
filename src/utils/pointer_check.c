@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:36:14 by wta               #+#    #+#             */
-/*   Updated: 2020/02/02 18:51:00 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/08 18:57:55 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ptr_valid_range(void *start, uint32_t length, void *ptr)
 	void	*end;
 
 	end = start + length;
-	if (ptr < start || ptr >= end)
+	if (ptr < start || ptr > end)
 		return (0);
 	return (1);
 }

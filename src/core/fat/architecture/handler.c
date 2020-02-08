@@ -6,28 +6,12 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 17:16:16 by wta               #+#    #+#             */
-/*   Updated: 2020/02/08 17:59:23 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/08 19:26:21 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
-#include "ft_printf.h"
 #include "ft_nm.h"
-
-char			*sarchitecture(t_nm *nm)
-{
-	int	cputype;
-	int cpusubtype;
-
-	cputype = nm->fat.cputype & ~CPU_ARCH_MASK;
-	cpusubtype = nm->fat.cpusubtype & ~CPU_SUBTYPE_MASK;
-	if (cputype > 0 && cputype <= 18)
-	{
-		if (g_dispatchers[cputype])
-			return g_dispatchers[cputype](cpusubtype);
-	}
-	return NULL;
-}
 
 static uint32_t	get_offsetof_offset(uint8_t is_64)
 {
@@ -65,7 +49,7 @@ int				handle_fat_arch_struct(t_nm *nm)
 	if (fat->is_cigam)
 		fat->is_64 ? swap_fat_arch_64(ptr) : swap_fat_arch(ptr);
 	fat->cputype = *(cpu_type_t*)ptr;
-	fat->cpusubtype = *(cpu_type_t*)ptr + 1;
+	fat->cpusubtype = *((cpu_type_t*)ptr + 1);
 	get_offsets(nm, ptr);
 	nm->mach_o.content = nm->content + fat->offset_to_mach_o;
 	if (ptr_valid_range(nm->content, nm->filestat.st_size,

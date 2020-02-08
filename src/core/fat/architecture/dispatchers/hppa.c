@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:09:55 by wta               #+#    #+#             */
-/*   Updated: 2020/02/08 18:04:49 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/08 19:03:57 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ char	*hppa(cpu_subtype_t subtype)
 	len = sizeof(hppa_names) / sizeof(char*);
 	if ((uint32_t)subtype < len)
 		return hppa_names[subtype];
-	return NULL;
+	return (hppa_names[0]);
 }

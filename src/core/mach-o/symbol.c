@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:05:31 by wta               #+#    #+#             */
-/*   Updated: 2020/02/07 13:04:57 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/08 17:48:35 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,9 @@ int				handle_symtab(t_nm *nm, t_symtab_command *sym)
 	i = -1;
 	while (++i < sym->nsyms)
 	{
-		if (!ptr_valid_range(mach_o->content, nm->filestat.st_size, nlist)
-		|| !handle_symbol(nm, nlist))
+		if (!ptr_valid_range(mach_o->content, nm->filestat.st_size, nlist))
+			return (throw_error(nm, ERR_TRUNCATED_OR_MALFORMED));
+		if (!handle_symbol(nm, nlist))
 			return (0);
 		nlist = (void*)nlist + offset;
 	}
