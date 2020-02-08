@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 16:49:57 by wta               #+#    #+#             */
-/*   Updated: 2020/02/08 18:20:23 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/08 20:03:45 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		main(int argc, char *argv[])
 			nm.content = mmap(NULL, nm.filestat.st_size,
 				PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
 			close(fd);
-			if (nm.filestat.st_size >= 4 && !handle_fat(&nm))
+			if (nm.filestat.st_size >= 4 && handle_fat(&nm) == -1)
 				handle_mach_o(&nm);
 			munmap(nm.content, nm.filestat.st_size);
 		}

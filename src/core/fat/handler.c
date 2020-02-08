@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/02 18:30:53 by wta               #+#    #+#             */
-/*   Updated: 2020/02/08 19:33:51 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/08 20:09:12 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,9 @@ static int	process_fat(t_nm *nm)
 	}
 	return (1);
 }
-#include "ft_printf.h"
+
 static int	find_host_arch(t_nm *nm)
 {
-	t_fat		*fat;
 	void		*ptr;
 	cpu_type_t	cputype;
 	cpu_type_t	cpusubtype;
@@ -43,10 +42,9 @@ static int	find_host_arch(t_nm *nm)
 	while (++i < nm->fat.fat_header.nfat_arch)
 	{
 		nm->fat.fat_arch_struct = ptr;
-		fat = &nm->fat;
 		cputype = *(cpu_type_t*)ptr;
 		cpusubtype = *((cpu_subtype_t*)ptr + 1);
-		if (fat->is_cigam)
+		if (nm->fat.is_cigam)
 		{
 			cputype = byte_swap32(cputype);
 			cpusubtype = byte_swap32(cpusubtype);
@@ -64,7 +62,7 @@ int			handle_fat(t_nm *nm)
 	t_fat		*fat;
 	uint32_t	magic;
 
-	if (is_fat(*(uint32_t*)nm->content))
+	if ((nm->is_universal = is_fat(*(uint32_t*)nm->content)))
 	{
 		fat = &nm->fat;
 		ft_memcpy((void*)&fat->fat_header, nm->content, sizeof(t_fat_header));
@@ -81,5 +79,5 @@ int			handle_fat(t_nm *nm)
 		return (1);
 	}
 	nm->mach_o.content = nm->content;
-	return (0);
+	return (-1);
 }

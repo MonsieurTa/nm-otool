@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 18:09:55 by wta               #+#    #+#             */
-/*   Updated: 2020/02/08 19:03:48 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/08 19:36:53 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 char	*arm(cpu_subtype_t subtype)
 {
 	static char	*arm_names[] = {
-		"arm",        NULL,       NULL,      NULL,
+		"arm64",        NULL,       NULL,      NULL,
 		NULL,         "arm v4t,", "arm v6",  "arm v5tej",
 		"arm xscale", "arm v7",   "arm v7f", "arm v7s",
 		"arm v7k",    "arm v6m",  "arm v7m", "arm v7em",

@@ -24,6 +24,7 @@
 # define IS_64						(0x2)
 
 # define ERR_TRUNCATED_OR_MALFORMED	(1)
+# define ERR_NOT_MACH_O				(2)
 
 typedef struct stat						t_stat;
 
@@ -107,6 +108,7 @@ typedef struct			s_nm
 	char			*bin_location;
 	char			*curr_argv;
 	int				found_host_arch;
+	int				is_universal;
 }						t_nm;
 
 uint32_t				byte_swap32(uint32_t x);
@@ -125,7 +127,7 @@ int						handle_fat_arch_struct(t_nm *nm);
 
 char					*sarchitecture(t_nm *nm);
 
-int						get_mach_o_header_size(t_mach_o *mach_o);
+int						get_mach_o_header_size(t_nm *nm);
 
 int						get_mach_o_spec(t_nm *nm);
 

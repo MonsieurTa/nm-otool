@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:10:14 by wta               #+#    #+#             */
-/*   Updated: 2020/02/08 19:20:50 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/08 19:52:23 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	get_mach_o_spec(t_nm *nm)
 
 	mach_o = &nm->mach_o;
 	ft_bzero(&mach_header, sizeof(t_mach_header_64));
-	if (!get_mach_o_header_size(mach_o))
+	if (!get_mach_o_header_size(nm))
 		return (0);
 	ft_memcpy((void *)&mach_header, mach_o->content, mach_o->header_size);
 	mach_o->ncmds = mach_header.ncmds;
