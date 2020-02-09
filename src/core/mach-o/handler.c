@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/02 18:28:59 by wta               #+#    #+#             */
-/*   Updated: 2020/02/08 20:02:58 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/09 18:07:01 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	parse_mach_o(t_nm *nm)
 	mach_o->magic = *(uint32_t*)(mach_o->content);
 	if (!get_mach_o_spec(nm))
 		return (0);
-	if (!handle_load_commands(nm))
+	if (handle_load_commands(nm) == -1)
 		return (0);
 	return (1);
 }
@@ -37,7 +37,7 @@ int			handle_mach_o(t_nm *nm)
 		if (nm->fat.fat_header.nfat_arch > 1 && !nm->found_host_arch)
 			ft_printf("\n%s (for architecture %s):\n",
 			nm->curr_argv, sarchitecture(nm));
-		print_result(nm->mach_o.result.head);
+		print_result(nm);
 	}
 	rm_list(&nm->mach_o.sections);
 	rm_list(&nm->mach_o.result);

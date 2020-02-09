@@ -25,6 +25,7 @@
 
 # define ERR_TRUNCATED_OR_MALFORMED	(1)
 # define ERR_NOT_MACH_O				(2)
+# define ERR_NOT_VALID				(3)
 
 typedef struct stat						t_stat;
 
@@ -90,7 +91,6 @@ typedef struct			s_fat
 
 	cpu_type_t			cputype;
 	cpu_subtype_t		cpusubtype;
-	uint32_t			align;
 
 	void				*fat_arch_struct;
 	uint32_t			fat_arch_size;
@@ -108,7 +108,7 @@ typedef struct			s_nm
 	char			*bin_location;
 	char			*curr_argv;
 	int				found_host_arch;
-	int				is_universal;
+	int				is_fat;
 }						t_nm;
 
 uint32_t				byte_swap32(uint32_t x);
@@ -130,6 +130,8 @@ char					*sarchitecture(t_nm *nm);
 int						get_mach_o_header_size(t_nm *nm);
 
 int						get_mach_o_spec(t_nm *nm);
+
+void					get_offsets(t_nm *nm, void *ptr);
 
 void					handle_sections(
 							t_nm *nm,
@@ -156,7 +158,7 @@ void					format_symaddr(
 							char dst[],
 							uint64_t addr);
 
-void					print_result(t_list *head);
+void					print_result(t_nm *nm);
 
 void					push_result(
 							t_nm *nm,

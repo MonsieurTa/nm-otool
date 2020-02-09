@@ -6,14 +6,14 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 11:04:18 by wta               #+#    #+#             */
-/*   Updated: 2020/02/08 17:45:48 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/09 14:54:18 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include "ft_nm.h"
 
-static void	process_symtab(t_nm *nm, void *lc)
+static int	process_symtab(t_nm *nm, void *lc)
 {
 	t_symtab_command	*sym;
 
@@ -21,7 +21,9 @@ static void	process_symtab(t_nm *nm, void *lc)
 	if (nm->mach_o.is_cigam)
 		range_swap32((void*)sym + offsetof(t_symtab_command, symoff),
 			(sizeof(t_symtab_command) - (sizeof(uint32_t) * 2)) / 4);
-	handle_symtab(nm, sym);
+	if (handle_symtab(nm, sym) == -1)
+		return (0);
+	return (1);
 }
 
 int			handle_load_commands(t_nm *nm)
@@ -41,8 +43,8 @@ int			handle_load_commands(t_nm *nm)
 			range_swap32((void*)lc, sizeof(t_load_command) / 4);
 		if (lc->cmd == LC_SEGMENT || lc->cmd == LC_SEGMENT_64)
 			handle_sections(nm, (void*)lc);
-		else if (lc->cmd == LC_SYMTAB)
-			process_symtab(nm, (void*)lc);
+		else if (lc->cmd == LC_SYMTAB && !process_symtab(nm, (void*)lc))
+			return (-1);
 		lc = (void*)lc + lc->cmdsize;
 	}
 	return (1);
