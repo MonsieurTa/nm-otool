@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/02 18:34:43 by wta               #+#    #+#             */
-/*   Updated: 2020/02/09 18:10:49 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/09 18:25:26 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,22 @@ static uint32_t	has_null_byte(char *str, void *eof)
 	return (0);
 }
 
-void		print_result(t_nm *nm)
+void			print_result(t_nm *nm)
 {
 	t_list		*node;
 	t_nm_result *res;
 	void		*eof;
+	uint32_t	width;
 
 	node = nm->mach_o.result.head;
 	eof = nm->content + nm->filestat.st_size;
 	while (node)
 	{
+		width = 0;
 		res = (t_nm_result*)node->content;
 		if (!has_null_byte(res->symname, eof))
 		{
+			ft_printf("%s %c ", res->symaddr, res->symchar);
 			write(STDOUT_FILENO, res->symname,
 			(size_t)(eof - (void*)res->symname));
 			write(STDOUT_FILENO, "\n", 1);
@@ -51,7 +54,7 @@ void		print_result(t_nm *nm)
 	}
 }
 
-char		*sarchitecture(t_nm *nm)
+char			*sarchitecture(t_nm *nm)
 {
 	int	cputype;
 	int cpusubtype;

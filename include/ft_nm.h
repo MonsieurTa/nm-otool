@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ft_nm                                            :+:      :+:    :+:   */
+/*   ft_nm.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/17 16:45:27 by wta               #+#    #+#             */
-/*   Updated: 2020/02/02 19:03:47 by wta              ###   ########.fr       */
+/*   Created: 2020/02/09 18:25:53 by wta               #+#    #+#             */
+/*   Updated: 2020/02/09 18:26:54 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@
 # include <sys/stat.h>
 # include "libft.h"
 
-# define IS_SWAP					(0x1)
-# define IS_64						(0x2)
+# define IS_SWAP					0x1
+# define IS_64						0x2
 
-# define ERR_TRUNCATED_OR_MALFORMED	(1)
-# define ERR_NOT_MACH_O				(2)
-# define ERR_NOT_VALID				(3)
+# define ERR_TRUNCATED_OR_MALFORMED	1
+# define ERR_NOT_MACH_O				2
+# define ERR_NOT_VALID				3
 
 typedef struct stat						t_stat;
 
@@ -184,6 +184,5 @@ char					*i860(cpu_subtype_t subtype);
 char					*ppc(cpu_subtype_t subtype);
 
 int						throw_error(t_nm *nm, int err_code);
-
 
 #endif
