@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 18:25:53 by wta               #+#    #+#             */
-/*   Updated: 2020/02/09 18:26:54 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/14 12:29:01 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ typedef struct			s_nm
 	t_fat			fat;
 	t_mach_o		mach_o;
 
+	void			*section;
+
 	t_stat			filestat;
 	void			*content;
 	char			*bin_location;
@@ -110,6 +112,12 @@ typedef struct			s_nm
 	int				found_host_arch;
 	int				is_fat;
 }						t_nm;
+
+void					process(
+							t_nm *nm,
+							int fd,
+							int (*mach_o_handler)(t_nm*),
+							int (*fat_handler)(t_nm*));
 
 uint32_t				byte_swap32(uint32_t x);
 uint64_t				byte_swap64(uint64_t x);
@@ -121,9 +129,9 @@ void					swap_fat_arch_64(void *ptr);
 
 int						cmp_addr(t_nm_result *a, t_nm_result *b);
 
-int						handle_fat(t_nm *nm);
-int						handle_mach_o(t_nm *nm);
-int						handle_fat_arch_struct(t_nm *nm);
+int						nm_handle_fat(t_nm *nm);
+int						nm_handle_mach_o(t_nm *nm);
+int						nm_handle_fat_arch_struct(t_nm *nm);
 
 char					*sarchitecture(t_nm *nm);
 

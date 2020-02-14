@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 17:16:16 by wta               #+#    #+#             */
-/*   Updated: 2020/02/09 15:54:38 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/14 09:17:22 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void			get_offsets(t_nm *nm, void *ptr)
 		*(uint64_t*)(ptr + offset) : *(uint32_t*)(ptr + offset);
 }
 
-int				handle_fat_arch_struct(t_nm *nm)
+int				nm_handle_fat_arch_struct(t_nm *nm)
 {
 	void		*ptr;
 	t_fat		*fat;
@@ -52,7 +52,7 @@ int				handle_fat_arch_struct(t_nm *nm)
 	nm->mach_o.content = nm->content + fat->offset_to_mach_o;
 	if (ptr_valid_range(nm->content, nm->filestat.st_size,
 		nm->mach_o.content + fat->mach_o_size))
-		return (handle_mach_o(nm));
+		return (nm_handle_mach_o(nm));
 	else
 		return (throw_error(nm, ERR_TRUNCATED_OR_MALFORMED));
 }

@@ -6,7 +6,7 @@
 #    By: wta <wta@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/28 20:09:26 by wta               #+#    #+#              #
-#    Updated: 2020/02/14 08:09:20 by wta              ###   ########.fr        #
+#    Updated: 2020/02/14 11:54:03 by wta              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ core/mach-o/magic.c								\
 core/mach-o/sections.c							\
 core/mach-o/sort.c								\
 core/mach-o/symbol.c							\
+core/process.c									\
 error/error.c									\
 utils/compare.c									\
 utils/pointer_check.c							\
@@ -59,6 +60,13 @@ utils/swap_fat_arch.c							\
 ft_nm.c											\
 
 OTOOL_SRCS =									\
+core/mach-o/header.c							\
+core/mach-o/magic.c								\
+core/process.c									\
+error/error.c									\
+utils/pointer_check.c							\
+utils/swap_bytes.c								\
+utils/spec.c									\
 ft_otool.c
 
 NM_OBJ = $(NM_SRCS:.c=.o)

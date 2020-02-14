@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/02 18:28:59 by wta               #+#    #+#             */
-/*   Updated: 2020/02/09 18:07:01 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/14 09:29:32 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	parse_mach_o(t_nm *nm)
 	return (1);
 }
 
-int			handle_mach_o(t_nm *nm)
+int			nm_handle_mach_o(t_nm *nm)
 {
 	uint32_t	ret;
 

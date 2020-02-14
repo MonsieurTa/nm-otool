@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/02 18:30:53 by wta               #+#    #+#             */
-/*   Updated: 2020/02/09 15:54:05 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/14 09:17:09 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	process_fat(t_nm *nm)
 	while (++i < nm->fat.fat_header.nfat_arch)
 	{
 		nm->fat.fat_arch_struct = ptr;
-		if (handle_fat_arch_struct(nm) == -1)
+		if (nm_handle_fat_arch_struct(nm) == -1)
 			return (0);
 		ptr = ptr + nm->fat.fat_arch_size;
 	}
@@ -64,22 +64,30 @@ static int	find_host_arch(t_nm *nm)
 	return (nm->fat.fat_arch_struct != NULL);
 }
 
-int			handle_fat(t_nm *nm)
+void		get_fat_spec(t_nm *nm)
+{
+	uint32_t	magic;
+
+	magic = nm->fat.fat_header.magic;
+	nm->fat.is_64 = is_64(magic);
+	nm->fat.is_cigam = is_cigam(magic);
+	if (nm->fat.is_cigam)
+		nm->fat.fat_header.nfat_arch = byte_swap32(
+			nm->fat.fat_header.nfat_arch);
+	nm->fat.fat_arch_size = nm->fat.is_64 ?
+		sizeof(t_fat_arch_64) : sizeof(t_fat_arch);
+	nm->found_host_arch = find_host_arch(nm);
+}
+
+int			nm_handle_fat(t_nm *nm)
 {
 	t_fat		*fat;
-	uint32_t	magic;
 
 	fat = &nm->fat;
 	ft_memcpy((void*)&fat->fat_header, nm->content, sizeof(t_fat_header));
-	magic = fat->fat_header.magic;
-	fat->is_64 = is_64(magic);
-	fat->is_cigam = is_cigam(magic);
-	if (fat->is_cigam)
-		fat->fat_header.nfat_arch = byte_swap32(fat->fat_header.nfat_arch);
-	fat->fat_arch_size = fat->is_64 ?
-		sizeof(t_fat_arch_64) : sizeof(t_fat_arch);
-	if ((nm->found_host_arch = find_host_arch(nm)) == 1)
-		return (handle_fat_arch_struct(nm));
+	get_fat_spec(nm);
+	if (nm->found_host_arch == 1)
+		return (nm_handle_fat_arch_struct(nm));
 	else if (!nm->found_host_arch)
 		return (process_fat(nm));
 	return (nm->found_host_arch);
