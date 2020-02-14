@@ -6,12 +6,16 @@
 #    By: wta <wta@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/28 20:09:26 by wta               #+#    #+#              #
-#    Updated: 2020/02/09 17:21:32 by wta              ###   ########.fr        #
+#    Updated: 2020/02/14 08:09:20 by wta              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ft_nm
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+NAME = nm_otool
+FT_NM = ft_nm
+FT_OTOOL = ft_otool
+BIN1 = c_ft_nm
+BIN2 = c_ft_otool
+CFLAGS = -Wall -Wextra -Werror# -g3 -fsanitize=address
 CC = cc -O2
 
 INC_DIR = include
@@ -22,7 +26,7 @@ LIBFT = libft
 HEADERS =	\
 ft_nm.h
 
-SRCS =											\
+NM_SRCS =										\
 core/fat/architecture/dispatchers/arm.c			\
 core/fat/architecture/dispatchers/hppa.c		\
 core/fat/architecture/dispatchers/i860.c		\
@@ -52,15 +56,28 @@ utils/print.c									\
 utils/spec.c									\
 utils/swap_bytes.c								\
 utils/swap_fat_arch.c							\
-main.c
+ft_nm.c											\
 
-OBJ = $(SRCS:.c=.o)
+OTOOL_SRCS =									\
+ft_otool.c
+
+NM_OBJ = $(NM_SRCS:.c=.o)
+OTOOL_OBJ = $(OTOOL_SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(addprefix $(OBJ_DIR)/, $(OBJ))
+$(NAME): $(FT_NM) $(FT_OTOOL)
+
+$(LIBFT):
 	$(MAKE) -j10 -C libft
-	$(CC) $(CFLAGS) $^ -L $(LIBFT) -lft -o $@
+
+$(FT_NM): $(addprefix $(OBJ_DIR)/, $(NM_OBJ))
+	$(MAKE) -j10 -C libft
+	$(CC) $(CFLAGS) -L $(LIBFT) -lft $^ -o $(FT_NM)
+
+$(FT_OTOOL): $(addprefix $(OBJ_DIR)/, $(OTOOL_OBJ))
+	$(MAKE) -j10 -C libft
+	$(CC) $(CFLAGS) -L $(LIBFT) -lft $^ -o $(FT_OTOOL)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
@@ -75,14 +92,17 @@ $(OBJ_DIR):
 $(OBJ_DIR)/%.o: $(SRCS_DIR)/%.c $(addprefix $(INC_DIR)/, $(HEADERS)) | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -I $(INC_DIR) -I $(addprefix $(LIBFT)/, $(INC_DIR)) -c -o $@ $<
 
-clean:
+libft_clean:
 	$(MAKE) -C libft clean
-	/bin/rm -rf $(OBJ)
+
+libft_fclean:
+	$(MAKE) -C libft fclean
+
+clean: libft_clean
 	/bin/rm -rf $(OBJ_DIR)
 
-fclean: clean
-	$(MAKE) -C libft fclean
-	/bin/rm -f $(NAME)
+fclean: libft_fclean clean
+	/bin/rm -f $(FT_NM) $(FT_OTOOL)
 
 re: fclean all
 
