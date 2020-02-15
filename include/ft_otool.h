@@ -1,22 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   header.c                                           :+:      :+:    :+:   */
+/*   ft_otool.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/01 11:07:33 by wta               #+#    #+#             */
-/*   Updated: 2020/02/15 14:55:42 by wta              ###   ########.fr       */
+/*   Created: 2020/02/14 08:26:21 by wta               #+#    #+#             */
+/*   Updated: 2020/02/14 08:26:37 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_nm.h"
+#ifndef FT_OTOOL_H
+# define FT_OTOOL_H
 
-int	get_mach_o_header_size(t_nm *nm)
-{
-	if (is_32(nm->mach_o.magic))
-		return ((nm->mach_o.header_size = sizeof(t_mach_header)) != 0);
-	else if (is_64(nm->mach_o.magic))
-		return ((nm->mach_o.header_size = sizeof(t_mach_header_64)) != 0);
-	return (throw_error(nm, ERR_NOT_MACH_O));
-}
+#endif

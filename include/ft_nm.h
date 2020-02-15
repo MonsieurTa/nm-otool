@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 18:25:53 by wta               #+#    #+#             */
-/*   Updated: 2020/02/14 12:29:01 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/15 16:33:34 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 # define ERR_TRUNCATED_OR_MALFORMED	1
 # define ERR_NOT_MACH_O				2
 # define ERR_NOT_VALID				3
+
+# define BIN_NM						1
+# define BIN_OTOOL					2
 
 typedef struct stat						t_stat;
 
@@ -47,6 +50,7 @@ typedef struct segment_command_64		t_segment_command_64;
 typedef struct section					t_section;
 typedef struct section_64				t_section_64;
 
+extern int		g_bin;
 extern char		*(*g_dispatchers[])(cpu_subtype_t);
 
 typedef struct			s_nm_result
@@ -113,7 +117,7 @@ typedef struct			s_nm
 	int				is_fat;
 }						t_nm;
 
-void					process(
+int						process(
 							t_nm *nm,
 							int fd,
 							int (*mach_o_handler)(t_nm*),
@@ -129,14 +133,19 @@ void					swap_fat_arch_64(void *ptr);
 
 int						cmp_addr(t_nm_result *a, t_nm_result *b);
 
+int						find_host_arch(t_nm *nm);
+
+int						process_fat(t_nm *nm, int (*mach_o_handler)(t_nm*));
+
 int						nm_handle_fat(t_nm *nm);
 int						nm_handle_mach_o(t_nm *nm);
-int						nm_handle_fat_arch_struct(t_nm *nm);
+int						handle_fat_arch_struct(t_nm *nm, int (*mach_o_handler)(t_nm*));
 
 char					*sarchitecture(t_nm *nm);
 
 int						get_mach_o_header_size(t_nm *nm);
 
+void					get_fat_spec(t_nm *nm);
 int						get_mach_o_spec(t_nm *nm);
 
 void					get_offsets(t_nm *nm, void *ptr);

@@ -6,7 +6,7 @@
 #    By: wta <wta@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/28 20:09:26 by wta               #+#    #+#              #
-#    Updated: 2020/02/14 11:54:03 by wta              ###   ########.fr        #
+#    Updated: 2020/02/15 16:50:43 by wta              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ FT_NM = ft_nm
 FT_OTOOL = ft_otool
 BIN1 = c_ft_nm
 BIN2 = c_ft_otool
-CFLAGS = -Wall -Wextra -Werror# -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 CC = cc -O2
 
 INC_DIR = include
@@ -27,6 +27,7 @@ HEADERS =	\
 ft_nm.h
 
 NM_SRCS =										\
+common/fat.c									\
 core/fat/architecture/dispatchers/arm.c			\
 core/fat/architecture/dispatchers/hppa.c		\
 core/fat/architecture/dispatchers/i860.c		\
@@ -38,7 +39,6 @@ core/fat/architecture/dispatchers/sparc.c		\
 core/fat/architecture/dispatchers/vax.c			\
 core/fat/architecture/dispatchers/x86.c			\
 core/fat/architecture/dispatcher.c				\
-core/fat/architecture/handler.c					\
 core/fat/handler.c								\
 core/mach-o/format.c							\
 core/mach-o/handler.c							\
@@ -60,13 +60,15 @@ utils/swap_fat_arch.c							\
 ft_nm.c											\
 
 OTOOL_SRCS =									\
+common/fat.c									\
 core/mach-o/header.c							\
 core/mach-o/magic.c								\
 core/process.c									\
 error/error.c									\
 utils/pointer_check.c							\
-utils/swap_bytes.c								\
 utils/spec.c									\
+utils/swap_bytes.c								\
+utils/swap_fat_arch.c							\
 ft_otool.c
 
 NM_OBJ = $(NM_SRCS:.c=.o)
@@ -89,6 +91,7 @@ $(FT_OTOOL): $(addprefix $(OBJ_DIR)/, $(OTOOL_OBJ))
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
+	mkdir -p $(OBJ_DIR)/common
 	mkdir -p $(OBJ_DIR)/core
 	mkdir -p $(OBJ_DIR)/core/fat
 	mkdir -p $(OBJ_DIR)/core/fat/architecture
