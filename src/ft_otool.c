@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 07:37:10 by wta               #+#    #+#             */
-/*   Updated: 2020/02/16 16:16:01 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/16 17:05:17 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ int			main(int argc, char *argv[])
 	if (argc == 1)
 		return (0);
 	i = 0;
-	ret = 1;
-	while (ret > 0 && ++i < argc)
+	ret = 0;
+	while (++i < argc)
 	{
 		ft_bzero(&nm, sizeof(t_nm));
 		nm.curr_argv = argv[i];
 		nm.bin_location = argv[0];
 		if ((fd = open(argv[i], O_RDONLY)) != -1)
-			ret = process(&nm, fd, otool_handle_mach_o, otool_handle_fat);
+			ret |= process(&nm, fd, otool_handle_mach_o, otool_handle_fat);
 	}
-	return (ret <= 0);
+	return (ret == -1);
 }
