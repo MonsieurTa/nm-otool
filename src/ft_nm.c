@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 16:49:57 by wta               #+#    #+#             */
-/*   Updated: 2020/02/16 16:14:32 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/16 16:57:56 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int			main(int argc, char *argv[])
 	if (argc == 1)
 		return (exec_nm(&nm, "a.out", argv[0]) <= 0);
 	i = 0;
-	ret = 1;
-	while (ret > 0 && ++i < argc)
-		ret = exec_nm(&nm, argv[i], argv[0]);
-	return (ret <= 0);
+	ret = 0;
+	while (++i < argc)
+		ret |= exec_nm(&nm, argv[i], argv[0]);
+	return (ret == -1);
 }
