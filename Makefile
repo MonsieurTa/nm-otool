@@ -6,7 +6,7 @@
 #    By: wta <wta@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/28 20:09:26 by wta               #+#    #+#              #
-#    Updated: 2020/02/15 16:50:43 by wta              ###   ########.fr        #
+#    Updated: 2020/02/16 15:06:25 by wta              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ ft_nm.h
 
 NM_SRCS =										\
 common/fat.c									\
+common/spec_getters.c							\
 core/fat/architecture/dispatchers/arm.c			\
 core/fat/architecture/dispatchers/hppa.c		\
 core/fat/architecture/dispatchers/i860.c		\
@@ -61,10 +62,15 @@ ft_nm.c											\
 
 OTOOL_SRCS =									\
 common/fat.c									\
+common/spec_getters.c							\
 core/mach-o/header.c							\
 core/mach-o/magic.c								\
 core/process.c									\
 error/error.c									\
+ft_otool/format.c								\
+ft_otool/handlers.c								\
+ft_otool/seeker.c								\
+ft_otool/swap.c									\
 utils/pointer_check.c							\
 utils/spec.c									\
 utils/swap_bytes.c								\
@@ -97,6 +103,7 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)/core/fat/architecture
 	mkdir -p $(OBJ_DIR)/core/fat/architecture/dispatchers
 	mkdir -p $(OBJ_DIR)/core/mach-o
+	mkdir -p $(OBJ_DIR)/ft_otool
 	mkdir -p $(OBJ_DIR)/error
 	mkdir -p $(OBJ_DIR)/utils
 

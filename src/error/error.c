@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 17:03:04 by wta               #+#    #+#             */
-/*   Updated: 2020/02/15 16:35:34 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/16 16:14:49 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,16 @@ static void	print_not_valid(t_nm *nm)
 	ft_putstr_fd(g_bin == BIN_NM ? "\n" : "", STDERR_FILENO);
 }
 
+static void	print_no_such_file_or_dir(t_nm *nm)
+{
+	ft_putstr_fd(nm->bin_location, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd(nm->curr_argv, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd("No such file or directory.\n",
+		STDERR_FILENO);
+}
+
 int			throw_error(t_nm *nm, int err_code)
 {
 	if (err_code == ERR_TRUNCATED_OR_MALFORMED)
@@ -55,5 +65,7 @@ int			throw_error(t_nm *nm, int err_code)
 		print_not_mach_o(nm);
 	if (err_code == ERR_NOT_VALID)
 		print_not_valid(nm);
+	if (err_code == ERR_NO_SUCH_FILE_OR_DIR)
+		print_no_such_file_or_dir(nm);
 	return (-1);
 }

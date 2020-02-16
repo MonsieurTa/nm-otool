@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 18:25:53 by wta               #+#    #+#             */
-/*   Updated: 2020/02/15 16:33:34 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/16 16:06:33 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define ERR_TRUNCATED_OR_MALFORMED	1
 # define ERR_NOT_MACH_O				2
 # define ERR_NOT_VALID				3
+# define ERR_NO_SUCH_FILE_OR_DIR	4
 
 # define BIN_NM						1
 # define BIN_OTOOL					2
@@ -139,7 +140,9 @@ int						process_fat(t_nm *nm, int (*mach_o_handler)(t_nm*));
 
 int						nm_handle_fat(t_nm *nm);
 int						nm_handle_mach_o(t_nm *nm);
-int						handle_fat_arch_struct(t_nm *nm, int (*mach_o_handler)(t_nm*));
+int						handle_fat_arch_struct(
+							t_nm *nm,
+							int (*mach_o_handler)(t_nm*));
 
 char					*sarchitecture(t_nm *nm);
 
