@@ -6,7 +6,7 @@
 #    By: wta <wta@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/28 20:09:26 by wta               #+#    #+#              #
-#    Updated: 2020/02/16 15:06:25 by wta              ###   ########.fr        #
+#    Updated: 2020/02/16 16:20:41 by wta              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ FT_NM = ft_nm
 FT_OTOOL = ft_otool
 BIN1 = c_ft_nm
 BIN2 = c_ft_otool
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror# -g3 -fsanitize=address
 CC = cc -O2
 
 INC_DIR = include
