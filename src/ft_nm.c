@@ -6,7 +6,7 @@
 /*   By: wta <wta@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 16:49:57 by wta               #+#    #+#             */
-/*   Updated: 2020/02/16 16:57:56 by wta              ###   ########.fr       */
+/*   Updated: 2020/02/22 15:37:45 by wta              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,5 @@ int			main(int argc, char *argv[])
 	ret = 0;
 	while (++i < argc)
 		ret |= exec_nm(&nm, argv[i], argv[0]);
-	return (ret == -1);
+	return (ret <= 0);
 }
